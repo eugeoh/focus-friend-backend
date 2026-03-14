@@ -1,17 +1,17 @@
 ---
 name: backlog
-description: 'Implement a backlog item end-to-end: plan, branch, code, test, PR. Use when the user provides a backlog item number (e.g., 1, 7) to implement from docs/backlog.md.'
-argument-hint: '[ITEM-NUMBER]'
+description: 'Implement a backlog item end-to-end: plan, branch, code, test, PR. Use when the user provides a ticket ID (e.g., HMP-001, HMP-007) to implement from docs/backlog.md.'
+argument-hint: '[TICKET-ID]'
 disable-model-invocation: false
 ---
 
-Implement backlog item `$ARGUMENTS` from `docs/backlog.md`.
+Implement backlog ticket `$ARGUMENTS` from `docs/backlog.md`.
 
 ## Workflow
 
 ### Phase 1: Understand
 
-1. Read `docs/backlog.md` and find the section matching item `$ARGUMENTS`.
+1. Read `docs/backlog.md` and find the section matching ticket `$ARGUMENTS` (e.g., `## HMP-003: Auth`).
 2. If not found, tell the user and stop.
 3. Read `docs/erd.md` to understand the data model.
 4. Read existing source files relevant to the ticket (check `src/`, `Controllers/`, `Models/`, `Services/`, `Data/`, etc.).
@@ -27,7 +27,7 @@ Implement backlog item `$ARGUMENTS` from `docs/backlog.md`.
 
 ### Phase 3: Implement
 
-8. Create branch: `feat/backlog-$ARGUMENTS` (e.g., `feat/backlog-3`) from `main`.
+8. Create branch: `feat/$ARGUMENTS` (e.g., `feat/HMP-003`) from `main`.
 9. For tickets that have testable behavior:
    - **RED** — Write tests first. Use xUnit + Moq (or NSubstitute).
    - Run `dotnet test` — verify new tests **fail**.

@@ -21,21 +21,21 @@ Run a sprint by selecting up to 5 backlog items and implementing them in paralle
 
 7. Use `TeamCreate` to create a team named `sprint`.
 8. For each selected backlog item, create a task with `TaskCreate`:
-   - Subject: the item number and title (e.g., `#3: Auth (Sign in with Apple / Google)`)
-   - Description: include the item number, full description from the backlog, and instructions to use the `/backlog` skill.
-   - ActiveForm: `Implementing backlog #N`
+   - Subject: the ticket ID and title (e.g., `HMP-003: Auth (Sign in with Apple / Google)`)
+   - Description: include the ticket ID, full description from the backlog, and instructions to use the `/backlog` skill.
+   - ActiveForm: `Implementing HMP-XXX`
 
 ### Phase 3: Spawn Agents
 
 9. For each task, spawn a teammate agent using the `Task` tool with:
    - `subagent_type`: `general-purpose`
    - `team_name`: `sprint`
-   - `name`: `backlog-N` (e.g., `backlog-3`)
+   - `name`: the ticket ID in lowercase (e.g., `hmp-003`)
    - `mode`: `bypassPermissions`
    - Prompt that tells the agent to:
-     a. Create a git worktree: `git worktree add ../holdmyphone-backlog-N -b feat/backlog-N main`
-     b. Change working directory to the worktree: `cd ../holdmyphone-backlog-N`
-     c. Use the `/backlog N` skill to implement the item end-to-end.
+     a. Create a git worktree: `git worktree add ../holdmyphone-HMP-XXX -b feat/HMP-XXX main`
+     b. Change working directory to the worktree: `cd ../holdmyphone-HMP-XXX`
+     c. Use the `/backlog HMP-XXX` skill to implement the ticket end-to-end.
      d. When done, mark the task as completed.
      e. **Do NOT merge into main** — the team lead will handle merges after review.
      f. **Do NOT edit `docs/backlog.md`** — the team lead will update ticket statuses.
@@ -51,15 +51,15 @@ Run a sprint by selecting up to 5 backlog items and implementing them in paralle
     - Verify the backlog item requirements are met
 12. If changes are needed, send feedback via `SendMessage` and let the agent iterate.
 13. When an agent's work is approved:
-    - Merge the worktree branch into `main`: `git checkout main && git merge feat/backlog-N`
-    - Remove the worktree: `git worktree remove ../holdmyphone-backlog-N`
+    - Merge the worktree branch into `main`: `git checkout main && git merge feat/HMP-XXX`
+    - Remove the worktree: `git worktree remove ../holdmyphone-HMP-XXX`
 14. After all items are merged, push to remote: `git push origin main`.
 15. Clean up the team with `TeamDelete`.
 
 ## Rules
 
 - Never select more than 5 items per sprint.
-- Always use git worktrees (`../holdmyphone-backlog-N`) — never work directly on `main`.
+- Always use git worktrees (`../holdmyphone-HMP-XXX`) — never work directly on `main`.
 - Merge one branch at a time to avoid conflicts.
 - If a merge conflict occurs, resolve it before merging the next branch.
 - Stash any local changes on `main` before starting.
